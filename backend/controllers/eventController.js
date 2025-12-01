@@ -1,0 +1,75 @@
+const Event = require("../models/Event");
+
+// Create Event (Admin only)
+exports.createEvent = async (req, res) => {
+  try {
+    const { title, description, date, location } = req.body;
+    const event = new Event({
+      title,
+      description,
+      date,
+      location,
+      createdBy: req.user.id,
+    });
+    await event.save();
+    res.status(201).json({ message: "Event created successfully", event });
+  } catch (err) {
+    res.status(500).json({ message: "Server error", error: err.message });
+  }
+};
+
+// Get All Events
+exports.getEvents = async (req, res) => {
+  try {
+    const events = await Event.find().populate("createdBy", "name email");
+    res.status(200).json(events);
+  } catch (err) {
+    res.status(500).json({ message: "Server error", error: err.message });
+  }
+};
+
+// Get Single Event
+exports.getEvent = async (req, res) => {
+  try {
+    const event = await Event.findById(req.params.id).populate(
+      "createdBy",
+      "name email"
+    );
+    if (!event) return res.status(404).json({ message: "Event not found" });
+    res.status(200).json(event);
+  } catch (err) {
+    res.status(500).json({ message: "Server error", error: err.message });
+  }
+};
+
+// Update Event (Admin only)
+exports.updateEvent = async (req, res) => {
+  try {
+    const event = await Event.findById(req.params.id);
+    if (!event) return res.status(404).json({ message: "Event not found" });
+
+    const { title, description, date, location } = req.body;
+    event.title = title || event.title;
+    event.description = description || event.description;
+    event.date = date || event.date;
+    event.location = location || event.location;
+
+    await event.save();
+    res.status(200).json({ message: "Event updated successfully", event });
+  } catch (err) {
+    res.status(500).json({ message: "Server error", error: err.message });
+  }
+};
+
+// Delete Event (Admin only)
+exports.deleteEvent = async (req, res) => {
+  try {
+    const event = await Event.findById(req.params.id);
+    if (!event) return res.status(404).json({ message: "Event not found" });
+
+    await event.remove();
+    res.status(200).json({ message: "Event deleted successfully" });
+  } catch (err) {
+    res.status(500).json({ message: "Server error", error: err.message });
+  }
+};
