@@ -68,10 +68,10 @@ Will include:
 
 ## 👤 Developer
 
-**Your Name**  
+**Esubalew**  
 Codveda Technology Intern  
-GitHub: _your link_  
-LinkedIn: _your link_
+GitHub: _https://github.com/esubaleww/_  
+LinkedIn: _www.linkedin.com/in/esuk_
 
 ---
 
