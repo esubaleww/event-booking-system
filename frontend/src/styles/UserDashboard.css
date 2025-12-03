@@ -1,0 +1,43 @@
+.user-dashboard {
+  padding: 20px;
+}
+
+.events-section,
+.bookings-section {
+  margin-top: 30px;
+}
+
+.events-grid {
+  display: grid;
+  gap: 12px;
+}
+
+.user-event-card {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.bookings-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.bookings-table th,
+.bookings-table td {
+  padding: 10px;
+  border: 1px solid #ddd;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+}
+
+.btn-primary {
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}

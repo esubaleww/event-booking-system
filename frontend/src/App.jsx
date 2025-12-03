@@ -1,35 +1,78 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useContext, useState, useEffect } from "react";
+import { Routes, Route, Navigate } from "react-router-dom";
+import { AuthContext } from "./context/AuthContext";
+import "./App.css";
 
-function App() {
-  const [count, setCount] = useState(0)
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
+import AdminDashboard from "./pages/AdminDashboard";
+import UserDashboard from "./pages/UserDashboard";
+
+import Navbar from "./components/Navbar";
+import Hero from "./components/Hero";
+import Footer from "./components/Footer";
+
+const App = () => {
+  const { user } = useContext(AuthContext);
+
+  const [darkMode, setDarkMode] = useState(
+    localStorage.getItem("darkMode") === "true"
+  );
+
+  useEffect(() => {
+    document.body.classList.toggle("theme-dark", darkMode);
+    localStorage.setItem("darkMode", darkMode);
+  }, [darkMode]);
+
+  const UserRoute = ({ children }) =>
+    !user ? <Navigate to="/login" /> : children;
+
+  const AdminRoute = ({ children }) =>
+    !user ? (
+      <Navigate to="/login" />
+    ) : user.role !== "admin" ? (
+      <Navigate to="/" />
+    ) : (
+      children
+    );
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="app-container">
+      <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
+      <Hero />
+      <div className="page-content">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route
+            path="/login"
+            element={!user ? <Login /> : <Navigate to="/" />}
+          />
+          <Route
+            path="/signup"
+            element={!user ? <Signup /> : <Navigate to="/" />}
+          />
+          <Route
+            path="/dashboard"
+            element={
+              <UserRoute>
+                <UserDashboard />
+              </UserRoute>
+            }
+          />
+          <Route
+            path="/admin"
+            element={
+              <AdminRoute>
+                <AdminDashboard />
+              </AdminRoute>
+            }
+          />
+        </Routes>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+      <Footer />
+    </div>
+  );
+};
 
-export default App
+export default App;

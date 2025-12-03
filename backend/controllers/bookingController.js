@@ -57,15 +57,18 @@ exports.getAllBookings = async (req, res) => {
 // Update booking status (admin only)
 exports.updateBookingStatus = async (req, res) => {
   try {
+    const { id } = req.params;
     const { status } = req.body;
-    const booking = await Booking.findById(req.params.id);
+
+    const booking = await Booking.findById(id);
     if (!booking) return res.status(404).json({ message: "Booking not found" });
 
-    booking.status = status || booking.status;
-    await booking.save();
+    booking.status = status;
+    await booking.save(); // <-- make sure this is here
 
-    res.status(200).json({ message: "Booking status updated", booking });
+    res.status(200).json({ message: "Booking updated", booking });
   } catch (err) {
+    console.error(err);
     res.status(500).json({ message: "Server error", error: err.message });
   }
 };

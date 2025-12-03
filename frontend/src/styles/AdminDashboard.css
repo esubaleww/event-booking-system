@@ -1,0 +1,195 @@
+.admin-dashboard {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  padding: 20px;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+.dashboard-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+.dashboard-header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 5px;
+  color: var(--text-color);
+}
+.dashboard-message {
+  font-size: 1rem;
+  color: green;
+  margin-top: 5px;
+}
+
+.create-section {
+  background-color: var(--card-bg);
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 40px;
+}
+
+.create-section h2 {
+  margin-bottom: 15px;
+  color: var(--text-color);
+}
+
+.create-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.create-form input {
+  padding: 10px 12px;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.button-row {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.btn-primary {
+  background-color: var(--primary-color);
+  color: var(--btn-text);
+  border: none;
+  padding: 10px 15px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.btn-primary:hover {
+  background-color: var(--secondary-color);
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+  color: var(--btn-text);
+  border: none;
+  padding: 10px 15px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.btn-secondary:hover {
+  background-color: #495057;
+}
+
+.events-section {
+  margin-bottom: 40px;
+}
+.events-section h2 {
+  margin-bottom: 15px;
+  color: var(--text-color);
+}
+
+.events-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.admin-event-card {
+  position: relative;
+}
+
+.bookings-section {
+  margin-bottom: 40px;
+}
+.bookings-section h2 {
+  margin-bottom: 15px;
+  color: var(--text-color);
+}
+
+.table-wrapper {
+  overflow-x: auto;
+}
+.bookings-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: var(--card-bg);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+}
+
+.bookings-table th,
+.bookings-table td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+.bookings-table th {
+  background-color: var(--primary-color);
+  color: var(--btn-text);
+}
+.bookings-table tr:hover {
+  background-color: #f1f1f1;
+}
+
+.bookings-table select {
+  padding: 6px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+}
+
+/* Modal */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal {
+  background-color: var(--card-bg);
+  padding: 20px;
+  border-radius: 12px;
+  width: 400px;
+  max-width: 90%;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.modal-header h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: var(--text-color);
+}
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 1.3rem;
+  cursor: pointer;
+  color: #999;
+}
+.close-btn:hover {
+  color: var(--text-color);
+}
+
+.modal-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.modal-form input {
+  padding: 10px;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}

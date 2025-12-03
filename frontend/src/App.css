@@ -1,42 +1,185 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+/* ============================
+   App.css - Global Styles & Theme
+   ============================ */
+
+/* Font */
+@font-face {
+  font-family: "Regular";
+  src: url("/fonts/Geologica-Regular");
+}
+
+/* ---------------------------
+   Reset & Base Styles
+---------------------------- */
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  box-sizing: border-box;
+  font-family: "Regular", sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: background 0.3s, color 0.3s;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+/* ---------------------------
+   Theme Variables
+---------------------------- */
+:root {
+  /* Light Theme */
+  --bg-color: #f7f7f7;
+  --text-color: #333;
+  --primary-color: #007bff;
+  --secondary-color: #005bb5;
+  --card-bg: #fff;
+  --header-bg: #007bff;
+  --footer-bg: #f1f1f1;
+  --btn-text: #fff;
+}
+
+body.theme-dark {
+  --bg-color: #2c2c2c;
+  --text-color: #e0e0e0;
+  --primary-color: #007bff;
+  --secondary-color: #005bb5;
+  --card-bg: #3a3a3a;
+  --header-bg: #222;
+  --footer-bg: #1a1a1a;
+  --btn-text: #fff;
+}
+
+/* ---------------------------
+   Global Layout Helpers
+---------------------------- */
+.app-container {
+  width: 100%;
+  min-height: 100vh;
+  background-color: var(--bg-color);
+  display: flex;
+  flex-direction: column;
+}
+
+.page-content {
+  margin-top: 80px; /* leave space for fixed navbar */
+  flex: 1;
+  padding: 20px;
+}
+
+/* ---------------------------
+   Buttons & Links
+---------------------------- */
+.btn,
+.btn-primary,
+.btn-outline {
+  display: inline-block;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s ease-in-out;
+}
+
+.btn-primary {
+  background-color: var(--primary-color);
+  color: var(--btn-text);
+  border: none;
+}
+
+.btn-primary:hover {
+  background-color: var(--secondary-color);
+  transform: translateY(-2px);
+}
+
+.btn-outline {
+  border: 2px solid var(--btn-text);
+  color: var(--btn-text);
+  background: transparent;
+}
+
+.btn-outline:hover {
+  background-color: var(--btn-text);
+  color: var(--primary-color);
+  transform: translateY(-2px);
+}
+
+/* ---------------------------
+   Utility Classes
+---------------------------- */
+.text-center {
   text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.hidden {
+  display: none !important;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.visible {
+  display: block !important;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+/* ---------------------------
+   Images & Media
+---------------------------- */
+img {
+  max-width: 100%;
+  display: block;
 }
 
-.card {
-  padding: 2em;
+/* ---------------------------
+   Forms & Inputs
+---------------------------- */
+input,
+select,
+textarea {
+  font-family: "Regular", sans-serif;
+  font-size: 1rem;
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: var(--card-bg);
+  color: var(--text-color);
+  transition: border-color 0.2s ease;
 }
 
-.read-the-docs {
-  color: #888;
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--primary-color);
+  outline: none;
+}
+
+/* ---------------------------
+   Global Sections
+---------------------------- */
+header,
+footer,
+section {
+  width: 100%;
+}
+
+/* ---------------------------
+   Scrollbar Theme
+---------------------------- */
+body::-webkit-scrollbar {
+  width: 10px;
+}
+
+body::-webkit-scrollbar-track {
+  background: var(--bg-color);
+}
+
+body::-webkit-scrollbar-thumb {
+  background: var(--secondary-color);
+  border-radius: 5px;
+}
+
+body::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-color);
 }

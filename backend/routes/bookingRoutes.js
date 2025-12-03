@@ -23,7 +23,7 @@ router.get("/", authenticateJWT, authorizeRoles("admin"), getAllBookings);
 
 // Admin: update booking status
 router.put(
-  "/:id",
+  "/:id/status",
   authenticateJWT,
   authorizeRoles("admin"),
   updateBookingStatus
