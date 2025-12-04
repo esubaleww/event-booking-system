@@ -1,16 +1,13 @@
 const Booking = require("../models/Booking");
 const Event = require("../models/Event");
 
-// Create a booking (user only)
 exports.createBooking = async (req, res) => {
   try {
     const { eventId } = req.body;
 
-    // Check if event exists
     const event = await Event.findById(eventId);
     if (!event) return res.status(404).json({ message: "Event not found" });
 
-    // Check if user already booked
     const existingBooking = await Booking.findOne({
       user: req.user.id,
       event: eventId,
@@ -29,7 +26,6 @@ exports.createBooking = async (req, res) => {
   }
 };
 
-// Get bookings of the logged-in user
 exports.getUserBookings = async (req, res) => {
   try {
     const bookings = await Booking.find({ user: req.user.id }).populate(
@@ -42,7 +38,6 @@ exports.getUserBookings = async (req, res) => {
   }
 };
 
-// Get all bookings (admin only)
 exports.getAllBookings = async (req, res) => {
   try {
     const bookings = await Booking.find()
@@ -54,7 +49,6 @@ exports.getAllBookings = async (req, res) => {
   }
 };
 
-// Update booking status (admin only)
 exports.updateBookingStatus = async (req, res) => {
   try {
     const { id } = req.params;
@@ -64,7 +58,7 @@ exports.updateBookingStatus = async (req, res) => {
     if (!booking) return res.status(404).json({ message: "Booking not found" });
 
     booking.status = status;
-    await booking.save(); // <-- make sure this is here
+    await booking.save();
 
     res.status(200).json({ message: "Booking updated", booking });
   } catch (err) {

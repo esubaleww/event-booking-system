@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { AuthContext } from "./context/AuthContext";
 import "./App.css";
 
@@ -15,13 +15,15 @@ import Footer from "./components/Footer";
 
 const App = () => {
   const { user } = useContext(AuthContext);
+  const location = useLocation();
 
-  const [darkMode, setDarkMode] = useState(
-    localStorage.getItem("darkMode") === "true"
-  );
+  const [darkMode, setDarkMode] = useState(() => {
+    const saved = localStorage.getItem("darkMode");
+    return saved ? saved === "true" : false;
+  });
 
   useEffect(() => {
-    document.body.classList.toggle("theme-dark", darkMode);
+    document.documentElement.classList.toggle("theme-dark", darkMode);
     localStorage.setItem("darkMode", darkMode);
   }, [darkMode]);
 
@@ -40,7 +42,9 @@ const App = () => {
   return (
     <div className="app-container">
       <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
-      <Hero />
+
+      {location.pathname === "/" && <Hero />}
+
       <div className="page-content">
         <Routes>
           <Route path="/" element={<Home />} />
@@ -70,6 +74,7 @@ const App = () => {
           />
         </Routes>
       </div>
+
       <Footer />
     </div>
   );

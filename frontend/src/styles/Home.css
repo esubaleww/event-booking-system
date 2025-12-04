@@ -4,25 +4,22 @@
   min-height: 100vh;
   background-color: var(--bg-color);
   color: var(--text-color);
-  transition: background 0.3s, color 0.3s;
 }
 
 .section-title {
   text-align: center;
   font-size: 2.3rem;
-  margin: 50px 0 20px;
+  margin-bottom: 50px;
+  margin-top: -50px;
   font-weight: bold;
-}
-
-.events-section {
-  padding: 60px 30px;
-  background-color: var(--bg-color);
+  color: var(--text-color);
 }
 
 .events-grid {
   display: grid;
-  gap: 25px;
-  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  padding: 0 20px;
 }
 
 .home-event-card {
@@ -32,8 +29,11 @@
   background-color: var(--card-bg);
   padding: 20px;
   border-radius: 8px;
+  transition: background 0.3s, color 0.3s;
 }
-
+.home-event-card:hover {
+  transform: scale(1.5);
+}
 .book-btn {
   margin-top: 10px;
   width: 100%;
@@ -41,18 +41,19 @@
   padding: 10px 16px;
   font-size: 1rem;
   background-color: var(--primary-color);
-  color: var(--btn-text);
+  color: #fff;
   border: none;
   border-radius: 6px;
   cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
 }
 
 .book-btn:hover {
   background-color: var(--secondary-color);
+  transform: translateY(-2px);
 }
 
-.empty-msg,
-.loading {
+.empty-msg {
   text-align: center;
   font-size: 1.1rem;
   opacity: 0.7;

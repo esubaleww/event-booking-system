@@ -1,7 +1,7 @@
 import React from "react";
 import "../styles/EventCard.css";
 
-const EventCard = ({ event, onDelete, onEdit, isAdmin }) => {
+const EventCard = ({ event, onDelete, onEdit, isAdmin, children }) => {
   return (
     <div className="event-card">
       <h3>{event.title}</h3>
@@ -12,6 +12,7 @@ const EventCard = ({ event, onDelete, onEdit, isAdmin }) => {
       <p>
         <strong>Location:</strong> {event.location}
       </p>
+      {children}
       {isAdmin && (
         <div className="event-actions">
           <button onClick={() => onEdit(event)} className="btn-primary">

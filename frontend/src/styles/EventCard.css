@@ -1,9 +1,12 @@
 .event-card {
-  border: none;
-  padding: 15px;
-
+  border: 1px solid #dddddd64;
+  padding: 25px;
+  height: 100%;
+  width: 100%;
+  font-family: "Regular", sans-serif;
+  border-radius: 8px;
   background-color: var(--card-bg);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+
   color: var(--text-color);
   transition: background 0.3s, color 0.3s;
 }

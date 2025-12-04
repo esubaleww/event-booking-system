@@ -1,6 +1,5 @@
 const Event = require("../models/Event");
 
-// Create Event (Admin only)
 exports.createEvent = async (req, res) => {
   try {
     const { title, description, date, location } = req.body;
@@ -18,7 +17,6 @@ exports.createEvent = async (req, res) => {
   }
 };
 
-// Get All Events
 exports.getEvents = async (req, res) => {
   try {
     const events = await Event.find().populate("createdBy", "name email");
@@ -28,7 +26,6 @@ exports.getEvents = async (req, res) => {
   }
 };
 
-// Get Single Event
 exports.getEvent = async (req, res) => {
   try {
     const event = await Event.findById(req.params.id).populate(
@@ -42,7 +39,6 @@ exports.getEvent = async (req, res) => {
   }
 };
 
-// Update Event (Admin only)
 exports.updateEvent = async (req, res) => {
   try {
     const event = await Event.findById(req.params.id);
@@ -61,13 +57,11 @@ exports.updateEvent = async (req, res) => {
   }
 };
 
-// Delete Event (Admin only)
 exports.deleteEvent = async (req, res) => {
   try {
     const event = await Event.findById(req.params.id);
     if (!event) return res.status(404).json({ message: "Event not found" });
 
-    // Use deleteOne instead of remove
     await Event.deleteOne({ _id: event._id });
 
     res.status(200).json({ message: "Event deleted successfully" });

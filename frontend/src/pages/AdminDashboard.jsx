@@ -1,5 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
+import { promoteUser } from "../services/auth";
+import { getUsers } from "../services/auth";
 
 import {
   getEvents,
@@ -16,6 +18,7 @@ import "../styles/AdminDashboard.css";
 const AdminDashboard = () => {
   const { user } = useContext(AuthContext);
 
+  const [allUsers, setAllUsers] = useState([]);
   const [events, setEvents] = useState([]);
   const [bookings, setBookings] = useState([]);
   const [newEvent, setNewEvent] = useState({
@@ -29,12 +32,13 @@ const AdminDashboard = () => {
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(true);
 
-  // Fetch all events and bookings
   const fetchData = async () => {
     setLoading(true);
     try {
       const eventsData = await getEvents(user?.token);
       const bookingsData = await getAllBookings(user?.token);
+      const usersRes = await getUsers();
+      setAllUsers(usersRes.filter((u) => u._id !== user._id));
       setEvents(eventsData);
       setBookings(bookingsData);
     } catch (err) {
@@ -48,7 +52,6 @@ const AdminDashboard = () => {
     fetchData();
   }, []);
 
-  // CREATE
   const handleCreateEvent = async (e) => {
     e.preventDefault();
     try {
@@ -65,7 +68,6 @@ const AdminDashboard = () => {
     }
   };
 
-  // DELETE
   const handleDeleteEvent = async (eventId) => {
     if (!window.confirm("Are you sure you want to delete this event?")) return;
 
@@ -79,7 +81,6 @@ const AdminDashboard = () => {
     }
   };
 
-  // EDIT
   const openEditModal = (event) => {
     const e = { ...event };
     if (e.date) e.date = new Date(e.date).toISOString().slice(0, 16);
@@ -108,7 +109,6 @@ const AdminDashboard = () => {
     }
   };
 
-  // BOOKINGS
   const handleUpdateBooking = async (bookingId, status) => {
     try {
       await updateBookingStatus(bookingId, { status }, user?.token);
@@ -117,16 +117,24 @@ const AdminDashboard = () => {
       console.error(err);
     }
   };
+  if (loading)
+    return (
+      <div className="loading-overlay">
+        <img
+          src="/src/assets/loading.svg"
+          className="loading-icon"
+          alt="Loading..."
+        />
+      </div>
+    );
 
   return (
     <div className="admin-dashboard">
-      {/* HEADER */}
       <header className="dashboard-header">
         <h1>Admin Dashboard</h1>
         {message && <p className="dashboard-message">{message}</p>}
       </header>
 
-      {/* CREATE SECTION */}
       <section className="create-section">
         <h2>Create New Event</h2>
         <form onSubmit={handleCreateEvent} className="create-form">
@@ -139,15 +147,14 @@ const AdminDashboard = () => {
             }
             required
           />
-          <input
-            type="text"
+          <textarea
             placeholder="Description"
             value={newEvent.description}
             onChange={(e) =>
               setNewEvent({ ...newEvent, description: e.target.value })
             }
             required
-          />
+          ></textarea>
           <input
             type="datetime-local"
             value={newEvent.date}
@@ -185,7 +192,6 @@ const AdminDashboard = () => {
         </form>
       </section>
 
-      {/* EVENTS SECTION */}
       <section className="events-section">
         <h2>All Events</h2>
         {loading ? (
@@ -207,7 +213,6 @@ const AdminDashboard = () => {
         )}
       </section>
 
-      {/* BOOKINGS SECTION */}
       <section className="bookings-section">
         <h2>All Bookings</h2>
         {bookings.length === 0 ? (
@@ -248,8 +253,54 @@ const AdminDashboard = () => {
           </div>
         )}
       </section>
+      <section className="users-section">
+        <h2>All Users</h2>
+        {allUsers.length === 0 ? (
+          <p>No users found.</p>
+        ) : (
+          <div className="table-wrapper">
+            <table className="users-table">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Role</th>
+                  <th>Promote</th>
+                </tr>
+              </thead>
+              <tbody>
+                {allUsers.map((u) => (
+                  <tr key={u._id}>
+                    <td>{u.name}</td>
+                    <td>{u.email}</td>
+                    <td>{u.role}</td>
+                    <td>
+                      {u.role !== "admin" && (
+                        <button
+                          className="btn-primary"
+                          onClick={async () => {
+                            try {
+                              const res = await promoteUser(u._id);
+                              setMessage(res.message);
+                              fetchData();
+                            } catch (err) {
+                              console.error(err);
+                              setMessage("Failed to promote user.");
+                            }
+                          }}
+                        >
+                          Promote
+                        </button>
+                      )}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </section>
 
-      {/* EDIT MODAL */}
       {isModalOpen && editingEvent && (
         <div className="modal-overlay" onClick={closeModal}>
           <div className="modal" onClick={(e) => e.stopPropagation()}>

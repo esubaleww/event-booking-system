@@ -1,25 +1,53 @@
 import "../styles/Footer.css";
+import {
+  FaLinkedin,
+  FaTelegramPlane,
+  FaTwitter,
+  FaFacebook,
+} from "react-icons/fa";
 
 const Footer = () => (
   <footer className="footer">
     <div className="footer-container">
       <div className="footer-left">
-        <img src="/src/assets/logo.png" className="footer-icon" />
+        <img src="/src/assets/logo.png" className="footer-icon" alt="Logo" />
         <h3>EventBooking</h3>
-        <p>Your trusted platform for managing and booking events.</p>
+        <p>
+          <em>Your trusted platform for managing and booking events.</em>
+        </p>
       </div>
 
       <div className="footer-links">
-        <a href="/">Home</a>
         <a href="/events">Events</a>
         <a href="/login">Login</a>
         <a href="/signup">Signup</a>
       </div>
 
       <div className="footer-social">
-        <a href="#">🌐</a>
-        <a href="#">🐦</a>
-        <a href="#">📘</a>
+        <a
+          href="https://linkedin.com"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <FaLinkedin size={24} />
+        </a>
+        <a
+          href="https://telegram.org"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <FaTelegramPlane size={24} />
+        </a>
+        <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
+          <FaTwitter size={24} />
+        </a>
+        <a
+          href="https://facebook.com"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <FaFacebook size={24} />
+        </a>
       </div>
     </div>
 

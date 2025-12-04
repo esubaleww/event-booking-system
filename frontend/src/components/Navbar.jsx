@@ -3,6 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import "../styles/Navbar.css";
 
+import { FiMenu, FiX, FiSun, FiMoon } from "react-icons/fi";
+
 const Navbar = ({ darkMode, setDarkMode }) => {
   const { user, logout } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -12,29 +14,19 @@ const Navbar = ({ darkMode, setDarkMode }) => {
   const handleLogout = () => {
     logout();
     navigate("/");
-    setMenuOpen(false); // close mobile menu
+    setMenuOpen(false);
   };
 
   return (
     <header className="navbar">
       <div className="nav-inner">
-        {/* Left section: Logo + Dark Mode */}
         <div className="nav-left">
-          <img src="/src/assets/logo.png" className="nav-icon" />
+          <img src="/src/assets/logo.png" className="nav-icon" alt="Logo" />
           <Link to="/" className="logo">
             EventBooking
           </Link>
-
-          {/* Dark Mode Toggle */}
-          <button
-            className="theme-toggle"
-            onClick={() => setDarkMode(!darkMode)}
-          >
-            {darkMode ? "🌙" : "☀️"}
-          </button>
         </div>
 
-        {/* Desktop Links */}
         <nav className="nav-links">
           <Link to="/">Home</Link>
           {!user && (
@@ -50,14 +42,19 @@ const Navbar = ({ darkMode, setDarkMode }) => {
               Logout
             </button>
           )}
+
+          <button
+            className="theme-toggle"
+            onClick={() => setDarkMode(!darkMode)}
+          >
+            {darkMode ? <FiMoon size={22} /> : <FiSun size={22} />}
+          </button>
         </nav>
 
-        {/* Mobile Hamburger */}
         <button className="hamburger" onClick={() => setMenuOpen(!menuOpen)}>
-          ☰
+          {menuOpen ? <FiX size={28} /> : <FiMenu size={28} />}
         </button>
 
-        {/* Mobile Menu */}
         <div className={`mobile-menu ${menuOpen ? "open" : ""}`}>
           <Link to="/" onClick={() => setMenuOpen(false)}>
             Home
@@ -87,6 +84,13 @@ const Navbar = ({ darkMode, setDarkMode }) => {
               Logout
             </button>
           )}
+
+          <button
+            className="theme-toggle mobile-toggle"
+            onClick={() => setDarkMode(!darkMode)}
+          >
+            {darkMode ? <FiMoon size={22} /> : <FiSun size={22} />}
+          </button>
         </div>
       </div>
     </header>

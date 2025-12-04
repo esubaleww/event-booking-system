@@ -1,8 +1,12 @@
 const express = require("express");
 const router = express.Router();
-const { register, login } = require("../controllers/authController");
+const {
+  register,
+  login,
+  getAllUsers,
+  promoteToAdmin,
+} = require("../controllers/authController");
 
-const { promoteToAdmin } = require("../controllers/authController");
 const {
   authenticateJWT,
   authorizeRoles,
@@ -12,7 +16,6 @@ router.post("/register", register);
 
 router.post("/login", login);
 
-// Only admins can promote users
 router.put(
   "/promote/:userId",
   authenticateJWT,
@@ -20,4 +23,5 @@ router.put(
   promoteToAdmin
 );
 
+router.get("/users", authenticateJWT, authorizeRoles("admin"), getAllUsers);
 module.exports = router;

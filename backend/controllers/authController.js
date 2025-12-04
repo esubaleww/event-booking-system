@@ -16,18 +16,16 @@ exports.register = async (req, res) => {
       name,
       email,
       password: hashedPassword,
-      role: role || "user", // default role is user
+      role: role || "user",
     });
     await user.save();
 
-    // Create JWT token
     const token = jwt.sign(
       { id: user._id, role: user.role },
       process.env.JWT_SECRET,
       { expiresIn: "1d" }
     );
 
-    // Return user and token
     res.status(201).json({
       token,
       user: {
@@ -75,16 +73,22 @@ exports.login = async (req, res) => {
   }
 };
 
-// Promote a user to admin (admin-only)
+exports.getAllUsers = async (req, res) => {
+  try {
+    const users = await User.find({}, "name email role");
+    res.status(200).json(users);
+  } catch (err) {
+    res.status(500).json({ message: "Server error", error: err.message });
+  }
+};
+
 exports.promoteToAdmin = async (req, res) => {
   try {
     const { userId } = req.params;
 
-    // Find user by ID
     const user = await User.findById(userId);
     if (!user) return res.status(404).json({ message: "User not found" });
 
-    // Update role
     user.role = "admin";
     await user.save();
 

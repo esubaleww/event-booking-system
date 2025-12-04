@@ -37,7 +37,7 @@ const UserDashboard = () => {
           alert("Session expired, please login again.");
           logout();
         }
-        setEvents(allEvents); // fallback
+        setEvents(allEvents);
         setBookings([]);
       }
     } catch (err) {
@@ -56,7 +56,6 @@ const UserDashboard = () => {
       await createBooking(eventId, user.token);
       alert("Booking successful!");
 
-      // update UI instantly
       setEvents(events.filter((e) => e._id !== eventId));
       setBookings([
         ...bookings,
@@ -72,11 +71,20 @@ const UserDashboard = () => {
     }
   };
 
-  if (loading) return <p>Loading dashboard...</p>;
+  if (loading)
+    return (
+      <div className="loading-overlay">
+        <img
+          src="/src/assets/loading.svg"
+          className="loading-icon"
+          alt="Loading..."
+        />
+      </div>
+    );
 
   return (
     <div className="user-dashboard">
-      <h1>Dashboard</h1>
+      <h1>User Dashboard</h1>
 
       <section className="events-section">
         <h2>Available Events</h2>

@@ -1,32 +1,47 @@
 .user-dashboard {
   padding: 20px;
+  background-color: var(--bg-color);
+  color: var(--text-color);
 }
 
+.user-dashboard h1 {
+  text-align: center;
+}
 .events-section,
 .bookings-section {
   margin-top: 30px;
 }
-
-.events-grid {
-  display: grid;
-  gap: 12px;
+.bookings-section h2 {
+  text-align: center;
+  padding: 20px;
 }
 
 .user-event-card {
   display: flex;
   flex-direction: column;
   gap: 6px;
+  background-color: var(--card-bg);
+  padding: 15px;
+  border-radius: 8px;
+
+  color: var(--text-color);
+  transition: background 0.3s, color 0.3s;
 }
 
 .bookings-table {
   width: 100%;
   border-collapse: collapse;
+  background-color: var(--card-bg);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
 }
 
 .bookings-table th,
 .bookings-table td {
   padding: 10px;
   border: 1px solid #ddd;
+  color: var(--text-color);
 }
 
 .table-wrapper {
@@ -34,10 +49,15 @@
 }
 
 .btn-primary {
-  background: #007bff;
-  color: white;
+  background-color: var(--primary-color);
+  color: var(--btn-text);
   border: none;
   padding: 6px 12px;
   border-radius: 4px;
   cursor: pointer;
+  transition: 0.2s;
+}
+
+.btn-primary:hover {
+  background-color: var(--secondary-color);
 }
