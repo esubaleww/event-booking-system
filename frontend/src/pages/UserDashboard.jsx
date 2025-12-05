@@ -22,26 +22,22 @@ const UserDashboard = () => {
         return;
       }
 
-      try {
-        const bookingsData = await getUserBookings(user.token);
-        setBookings(bookingsData);
+      let bookingsData = await getUserBookings(user.token);
 
-        const bookedEventIds = bookingsData.map((b) => b.event?._id);
-        const unbookedEvents = allEvents.filter(
-          (event) => !bookedEventIds.includes(event._id)
-        );
-        setEvents(unbookedEvents);
-      } catch (err) {
-        console.error("Failed to fetch bookings:", err);
-        if (err.response?.status === 401) {
-          alert("Session expired, please login again.");
-          logout();
-        }
-        setEvents(allEvents);
-        setBookings([]);
-      }
+      bookingsData = bookingsData.filter((b) => b.event !== null);
+
+      setBookings(bookingsData);
+
+      const bookedEventIds = bookingsData.map((b) => b.event._id);
+      const unbookedEvents = allEvents.filter(
+        (event) => !bookedEventIds.includes(event._id)
+      );
+      setEvents(unbookedEvents);
     } catch (err) {
-      console.error("Failed to fetch events:", err);
+      console.error(err);
+      alert("Failed to load events. Please try again.");
+      setEvents([]);
+      setBookings([]);
     }
     setLoading(false);
   };
@@ -66,7 +62,7 @@ const UserDashboard = () => {
         },
       ]);
     } catch (err) {
-      console.error("Booking failed:", err);
+      console.error(err);
       alert("Booking failed. Try again.");
     }
   };
@@ -89,19 +85,18 @@ const UserDashboard = () => {
       <section className="events-section">
         <h2>Available Events</h2>
         {events.length === 0 ? (
-          <p>No available events to book.</p>
+          <p className="empty-msg">No available events to book.</p>
         ) : (
           <div className="events-grid">
             {events.map((event) => (
-              <div key={event._id} className="user-event-card">
-                <EventCard event={event} />
+              <EventCard key={event._id} event={event}>
                 <button
                   onClick={() => handleBook(event._id)}
-                  className="btn-primary"
+                  className="book-btn"
                 >
-                  Book
+                  Book Now
                 </button>
-              </div>
+              </EventCard>
             ))}
           </div>
         )}
@@ -110,7 +105,7 @@ const UserDashboard = () => {
       <section className="bookings-section">
         <h2>My Bookings</h2>
         {bookings.length === 0 ? (
-          <p>No bookings yet.</p>
+          <p className="empty-msg">No bookings yet.</p>
         ) : (
           <div className="table-wrapper">
             <table className="bookings-table">

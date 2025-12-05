@@ -58,34 +58,6 @@
   margin-top: 10px;
 }
 
-.btn-primary {
-  background-color: var(--primary-color);
-  color: var(--btn-text);
-  border: none;
-  padding: 10px 15px;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: 0.2s;
-}
-
-.btn-primary:hover {
-  background-color: var(--secondary-color);
-}
-
-.btn-secondary {
-  background-color: #6c757d;
-  color: var(--btn-text);
-  border: none;
-  padding: 10px 15px;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: 0.2s;
-}
-
-.btn-secondary:hover {
-  background-color: #495057;
-}
-
 .events-section {
   margin-bottom: 40px;
 }

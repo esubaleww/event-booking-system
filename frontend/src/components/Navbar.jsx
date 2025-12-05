@@ -1,15 +1,32 @@
-import React, { useContext, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useContext, useState, useEffect, useRef } from "react";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import "../styles/Navbar.css";
-
 import { FiMenu, FiX, FiSun, FiMoon } from "react-icons/fi";
 
 const Navbar = ({ darkMode, setDarkMode }) => {
   const { user, logout } = useContext(AuthContext);
   const navigate = useNavigate();
+  const location = useLocation();
+  const menuRef = useRef();
 
   const [menuOpen, setMenuOpen] = useState(false);
+
+  useEffect(() => {
+    setMenuOpen(false);
+  }, [location.pathname]);
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (menuRef.current && !menuRef.current.contains(e.target)) {
+        setMenuOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   const handleLogout = () => {
     logout();
@@ -22,7 +39,7 @@ const Navbar = ({ darkMode, setDarkMode }) => {
       <div className="nav-inner">
         <div className="nav-left">
           <img src="/src/assets/logo.png" className="nav-icon" alt="Logo" />
-          <Link to="/login" className="logo">
+          <Link to="/" className="logo">
             EventBooking
           </Link>
         </div>
@@ -55,7 +72,7 @@ const Navbar = ({ darkMode, setDarkMode }) => {
           {menuOpen ? <FiX size={28} /> : <FiMenu size={28} />}
         </button>
 
-        <div className={`mobile-menu ${menuOpen ? "open" : ""}`}>
+        <div ref={menuRef} className={`mobile-menu ${menuOpen ? "open" : ""}`}>
           <Link to="/" onClick={() => setMenuOpen(false)}>
             Home
           </Link>

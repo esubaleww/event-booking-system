@@ -47,17 +47,3 @@
 .table-wrapper {
   overflow-x: auto;
 }
-
-.btn-primary {
-  background-color: var(--primary-color);
-  color: var(--btn-text);
-  border: none;
-  padding: 6px 12px;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: 0.2s;
-}
-
-.btn-primary:hover {
-  background-color: var(--secondary-color);
-}

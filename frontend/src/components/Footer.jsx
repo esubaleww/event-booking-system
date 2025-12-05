@@ -25,7 +25,7 @@ const Footer = () => (
 
       <div className="footer-social">
         <a
-          href="https://linkedin.com"
+          href="https://linkedin.com/in/esuk"
           target="_blank"
           rel="noopener noreferrer"
         >
@@ -38,7 +38,11 @@ const Footer = () => (
         >
           <FaTelegramPlane size={24} />
         </a>
-        <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
+        <a
+          href="https://x.com/Esubalew_1"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           <FaTwitter size={24} />
         </a>
         <a

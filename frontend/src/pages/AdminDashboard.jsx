@@ -38,9 +38,13 @@ const AdminDashboard = () => {
       const eventsData = await getEvents(user?.token);
       const bookingsData = await getAllBookings(user?.token);
       const usersRes = await getUsers();
+
       setAllUsers(usersRes.filter((u) => u._id !== user._id));
+
+      const filteredBookings = bookingsData.filter((b) => b.event !== null);
+
       setEvents(eventsData);
-      setBookings(bookingsData);
+      setBookings(filteredBookings);
     } catch (err) {
       console.error("Error loading admin data:", err);
       setMessage("Failed to load data.");

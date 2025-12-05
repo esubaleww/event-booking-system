@@ -1,4 +1,5 @@
 const Event = require("../models/Event");
+const Booking = require("../models/Booking");
 
 exports.createEvent = async (req, res) => {
   try {
@@ -62,9 +63,13 @@ exports.deleteEvent = async (req, res) => {
     const event = await Event.findById(req.params.id);
     if (!event) return res.status(404).json({ message: "Event not found" });
 
+    await Booking.deleteMany({ event: event._id });
+
     await Event.deleteOne({ _id: event._id });
 
-    res.status(200).json({ message: "Event deleted successfully" });
+    res
+      .status(200)
+      .json({ message: "Event and related bookings deleted successfully" });
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: "Server error", error: err.message });

@@ -1,25 +1,25 @@
 # 🎉 Event Booking System – MERN Stack
 
-A full-stack event booking platform with authentication, user dashboard, admin panel, event management, and theming (light/dark mode).
+A full-stack event booking platform with authentication, user dashboard, admin panel, event management, and theming.
 
 ---
 
-## 🛠️ Tech Stack
+## 🛠️ **Tech Stack**
 
-### **Frontend**
+### 🖥️ Frontend
 
 - React (Vite)
 - React Router
 - Axios
-- Context API (Auth)
-- CSS3 (Mobile Responsive)
+- Context API
+- CSS (Responsive)
 
-### **Backend**
+### 🗄️ Backend
 
 - Node.js
 - Express.js
 - MongoDB + Mongoose
-- JSON Web Tokens (JWT)
+- JWT Authentication
 - bcryptjs
 - CORS
 
@@ -47,13 +47,18 @@ A full-stack event booking platform with authentication, user dashboard, admin p
 - ✔️ Delete events
 - ✔️ View all bookings
 - ✔️ Promote users to admin
+- ✔️ Remove deleted event references from bookings
 
 #### **Users**
 
-- ✔️ View upcoming events
+- ✔️ View events
 - ✔️ Book events
-- ✔️ See personal bookings
-- ✔️ Cannot book the same event twice
+- ✔️ View personal bookings
+- ✔️ Prevent duplicate booking
+
+#### **Guests**
+
+- ✔️ View upcoming events
 
 ---
 
@@ -62,8 +67,8 @@ A full-stack event booking platform with authentication, user dashboard, admin p
 - ✔️ User schema
 - ✔️ Event schema
 - ✔️ Booking schema
-- ✔️ Validation
-- ✔️ Proper model relationships
+- ✔️ Data validation
+- ✔️ Model relationships
 
 ---
 
@@ -71,83 +76,101 @@ A full-stack event booking platform with authentication, user dashboard, admin p
 
 - ✔️ Fully responsive
 - ✔️ Light & dark mode toggle
-- ✔️ Hero section
-- ✔️ Event cards
+- ✔️ Hero section with CTA
+- ✔️ Event cards with hover effects
 - ✔️ Admin dashboard
 - ✔️ User dashboard
 - ✔️ Loading spinner
 - ✔️ Error messages
-- ✔️ Clean & modern visuals
+- ✔️ Clean modern visuals
+- ✔️ Password visibility toggle
 
 ---
 
-## 🛠️ Setup Instructions
+## 🛠️ **Setup Instructions**
 
-### **1️⃣ Clone the repository**
+### 1️⃣ Clone the Repository
 
-```sh
-git clone https://github.com/esubaleww/event-booking-system.git
-cd event-booking-system
-🛠️ Setup Instructions
-1️⃣ Clone the repository
-git clone https://github.com/esubaleww/event-booking-system.git
-cd event-booking-system
+---
 
-2️⃣ Backend Setup
-cd backend
-npm install
+## 🔧 **Backend Setup**
 
+### 2️⃣ **Install Dependencies**
 
-Create .env inside backend:
+### 3️⃣ **Create `.env` File**
 
-MONGO_URI=your_mongodb_connection_string
-JWT_SECRET=your_jwt_secret
+Inside **backend/** create:
+MONGO_URI=mongodb://localhost:27017/event-booking-system
+JWT_SECRET=my_secret_key
 PORT=5000
 
+### 4️⃣ **Start Backend**
 
-Start backend:
-
-npm start
-
-3️⃣ Frontend Setup
-cd ../frontend
-npm install
+cd backend
 npm run dev
+Backend runs at:  
+👉 http://localhost:5000
 
+---
 
-Default URLs:
+## 💻 **Frontend Setup**
 
-Frontend: http://localhost:5173
+### 5️⃣ Install Dependencies
 
-Backend: http://localhost:5000
+npm install
 
-🔗 API Endpoints
-Auth Routes
-Method	Endpoint	Description
-POST	/api/auth/signup	Register user
-POST	/api/auth/login	Login user
-PUT	/api/auth/promote/:id	Promote to admin
-Event Routes
-Method	Endpoint	Description
-GET	/api/events	Get all events
-POST	/api/events	Create event (Admin)
-PUT	/api/events/:id	Update event
-DELETE	/api/events/:id	Delete event
-Booking Routes
-Method	Endpoint	Description
-POST	/api/bookings/:eventId	Book an event
-GET	/api/bookings/user	User bookings
-GET	/api/bookings	Admin: all bookings
-👤 Developer
+### 6️⃣ Start Frontend
 
-Esubalew
+cd frontend
+npm run dev
+Frontend runs at:  
+👉 http://localhost:5173
+
+---
+
+# 🔗 **API Endpoints**
+
+### 🔐 **Auth Routes**
+
+Method Endpoint Description
+
+POST /api/auth/signup Register user
+POST /api/auth/login Login user
+PUT /api/auth/promote/:id Promote user to admin
+
+---
+
+### 🗓️ **Event Routes**
+
+Method Endpoint Description
+
+GET /api/events Get all events
+POST /api/events Create event (Admin only)
+PUT /api/events/:id Update event
+DELETE /api/events/:id Delete event
+
+---
+
+### 🎟️ **Booking Routes**
+
+Method Endpoint Description
+
+POST /api/bookings/:eventId Book event
+GET /api/bookings/user Get user bookings
+GET /api/bookings Admin: all bookings
+
+---
+
+# 👤 **Developer**
+
+**Esubalew**  
 Codveda Technology Intern
 
-🔗 GitHub: https://github.com/esubaleww
-
+🔗 GitHub: https://github.com/esubaleww  
 🔗 LinkedIn: https://www.linkedin.com/in/esuk
 
-📌 Notes
+---
 
-This README will be updated if new features are added.
-```
+## 📌 **Notes**
+
+- README will be updated as more features are added.

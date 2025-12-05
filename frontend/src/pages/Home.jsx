@@ -28,10 +28,6 @@ const Home = () => {
     fetchEvents();
   }, []);
 
-  const handleGuestRedirect = () => {
-    navigate("/login");
-  };
-
   if (loading)
     return (
       <div className="loading-overlay">
@@ -50,12 +46,15 @@ const Home = () => {
         {events.length === 0 ? (
           <p className="empty-msg">No events available</p>
         ) : (
-          <div className="home-event-cardd">
+          <div className="home-event-card">
             <div className="events-grid">
               {events.map((event) => (
                 <EventCard key={event._id} event={event}>
                   {!user && (
-                    <button className="book-btn" onClick={handleGuestRedirect}>
+                    <button
+                      className="book-btn"
+                      onClick={() => navigate("/login")}
+                    >
                       Book Now
                     </button>
                   )}

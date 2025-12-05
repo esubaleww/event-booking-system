@@ -42,6 +42,10 @@ body {
     #ffe1e0 100%
   );
   --hero-overlay: rgba(255, 255, 255, 0.2);
+  --hprimary-color: #d49a87;
+  --hsecondary-color: #7e6e6e;
+
+  --htext-color: #4b0040;
 }
 
 :root.theme-dark {
@@ -54,7 +58,9 @@ body {
   --card-bg: #2b2a28;
   --header-bg: #42403c;
   --footer-bg: #222120;
-
+  --htext-color: #fff;
+  --hprimary-color: #fcb69f;
+  --hsecondary-color: #ff8c7a;
   --btn-text: #ffffff;
 
   --hero-gradient: linear-gradient(

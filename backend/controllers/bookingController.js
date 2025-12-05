@@ -40,9 +40,10 @@ exports.getUserBookings = async (req, res) => {
 
 exports.getAllBookings = async (req, res) => {
   try {
-    const bookings = await Booking.find()
+    const bookings = await Booking.find({ event: { $ne: null } })
       .populate("user", "name email")
       .populate("event", "title date location");
+
     res.status(200).json(bookings);
   } catch (err) {
     res.status(500).json({ message: "Server error", error: err.message });
