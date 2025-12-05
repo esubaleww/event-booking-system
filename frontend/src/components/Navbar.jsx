@@ -22,7 +22,7 @@ const Navbar = ({ darkMode, setDarkMode }) => {
       <div className="nav-inner">
         <div className="nav-left">
           <img src="/src/assets/logo.png" className="nav-icon" alt="Logo" />
-          <Link to="/" className="logo">
+          <Link to="/login" className="logo">
             EventBooking
           </Link>
         </div>
